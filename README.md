@@ -18,8 +18,31 @@ I needed a self-hosted cloud storage solution for daily use. While I previously 
 
 
 ## Docker Compose Deployment
+* Docker compose from hub.docker.com
+  https://hub.docker.com/r/linuxserver/nextcloud
+
+* Mariadb databse from hub.docker.com
+  https://hub.docker.com/search?q=mariadb
+
+* Redis data accelrator platform
+  https://hub.docker.com/_/redis
+
 
 
 ### The Production File (`docker-compose.yml`)
 This deployment pairs the Nextcloud application with an in-memory Redis cache and automated health checking to make the platform self-healing.
+# Note:
+1. Change the storage path a.k.a data location
+2. Choose passwors for database and users. The username and password for databse are important as you will require to use same when first time accessing the webpage using https://localhost:443
+3. after making the changes in the yaml file run the following commands in the shell prompt under #pwd
+  Pull the docker container from source: docker compose up -d
+  The logs should show the sucess. If stuck with issue then run;
+*  #echo $?
+*  #0 >> SUCESS
+*  #1 or -1 >> FAILURE
+
+
+
+
+    
 
