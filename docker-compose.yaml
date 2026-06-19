@@ -1,0 +1,52 @@
+--
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+   # dns:
+   #   - 1.1.1.1
+   #   - 8.8.8.8
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+# instead of "/media/halides/Transcent" provide path of your storage where you want your files/ data to be stored. 
+#In my case I am using a USB drive connected on USB 3.0 port <Blue port>
+      - /media/halides/Transcend:/data
+    ports:
+      - 443:443
+# additonal port for http can be added
+#  - 8080:80
+    restart: unless-stopped
+    depends_on:
+      - nextcloud-db
+
+  nextcloud-db:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: nextcloud-db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - MYSQL_ROOT_PASSWORD=dbCloudmaster
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=Cloudmaster
+    volumes:
+      - ./db-config:/config
+    restart: unless-stopped
+  redis:
+    image: docker.io/library/redis:alpine
+    container_name: nextcloud-redis
+    environment:
+      - PUID=1000
+      - PGID=1000
+    restart: unless-stopped
+#self healing  
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://127.0.0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
