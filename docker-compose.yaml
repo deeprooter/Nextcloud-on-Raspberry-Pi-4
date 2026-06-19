@@ -30,10 +30,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/New_York
-      - MYSQL_ROOT_PASSWORD=dbCloudmaster
+      - MYSQL_ROOT_PASSWORD=dbPassword
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=Cloudmaster
+      - MYSQL_PASSWORD=Password
     volumes:
       - ./db-config:/config
     restart: unless-stopped
