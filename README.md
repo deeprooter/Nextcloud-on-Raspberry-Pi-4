@@ -127,6 +127,11 @@ During initialization, adding custom DNS server arrays directly into the `docker
    docker compose up -d
    ```
 
+# Future considerations
+
+1. Establish Cloudflare Zero Trust reverse proxy to enable secure access over internet.
+2. Backup and restore capabilities.
+3. Integration with HomeAssistant
 
 
 
